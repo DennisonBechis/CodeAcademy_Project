@@ -29,7 +29,7 @@ def add_attraction(destination,attraction):
     return 
 
 add_attraction('Los Angeles, USA',['Venice Beach', ['beach']])
-add_attraction("Paris, France", ["the Louvre", ["art", "museum"]])
+add_attraction("Paris, France", ["The Louvre", ["art", "museum"]])
 add_attraction("Paris, France", ["Arc de Triomphe", ["historical site", "monument"]])
 add_attraction("Shanghai, China", ["Yu Garden", ["garden", "historcical site"]])
 add_attraction("Shanghai, China", ["Yuz Museum", ["art", "museum"]])
@@ -44,18 +44,36 @@ def find_attractions(destination,interests):
   destination_index = get_destination_index(destination)
   attractions_in_city = attractions[destination_index]
   attractions_with_interest = []
+  possible_attractions = []
   for i in attractions_in_city:
     possible_attraction = i
-    attraction_tags = i[1]
-    for interest in interests:
-      if interest == attraction_tags[0]:
-        attractions_with_interest.append(possible_attraction[0])
+    print(possible_attraction[0])
+    for x in possible_attraction[1]:
+      attraction_tags = x
+      for interest in interests:
+        if interest == attraction_tags:
+          attractions_with_interest.append(possible_attraction[0])
   return attractions_with_interest
   
-la_arts = find_attractions('Los Angeles, USA',['art'])
+la_arts = find_attractions('Los Angeles, USA',['art','beach'])
 print(la_arts)
-  
 
+def get_attractions_for_traveler(traveler):
+  traveler_destination = traveler[1]
+  traveler_interests = traveler[2]
+  traveler_attractions = \
+  find_attractions(traveler_destination,traveler_interests)
+  print(traveler_attractions)
+  places = ''
+  for i in range(0,len(traveler_attractions)):
+    if i == len(traveler_attractions) - 1:
+      places += str(traveler_attractions[i]) + "."
+    else:
+      places += str(traveler_attractions[i]) + ", "
+  interests_string = "Hi " + traveler[0] + ", we think you'll like these places around " + traveler_destination +': '+ places
+  return interests_string
+print(get_attractions_for_traveler(['Dereck Smill', 'Paris, France', ['art','monument']]))
+  
 
 
 
